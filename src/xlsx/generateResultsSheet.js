@@ -176,7 +176,7 @@ const generateTeamDataRows = (worksheet, teams) => {
       P: { formula: `SUMIF(pools!$B:$B,$A${rowIndex},pools!$P:$P)+SUMIF(brackets!$B:$B,$A${rowIndex},brackets!$P:$P)` },
       Q: { formula: `IFERROR(P${rowIndex}/L${rowIndex}, 0)` },
       R: { formula: `N${rowIndex}-P${rowIndex}` },
-      S: { formula: `=IFERROR(N${rowIndex}/P${rowIndex}; 0)` },
+      S: { formula: `IFERROR(N${rowIndex}/P${rowIndex}, 0)` },
       T: { formula: `SUMIF(pools!$B:$B,$A${rowIndex},pools!$R:$R)+SUMIF(brackets!$B:$B,$A${rowIndex},brackets!$R:$R)` },
       U: { formula: `SUMIF(pools!$B:$B,$A${rowIndex},pools!$S:$S)+SUMIF(brackets!$B:$B,$A${rowIndex},brackets!$S:$S)` },
       V: { formula: `T${rowIndex}+(2*U${rowIndex})` },
@@ -205,6 +205,7 @@ const generateTeamDataRows = (worksheet, teams) => {
       };
     }
     worksheet.getCell(`G${rowIndex}`).numFmt = '0.00%';
+    worksheet.getCell(`Q${rowIndex}`).numFmt = '0.00';
     worksheet.getCell(`S${rowIndex}`).numFmt = '0.00';
   });
 }
